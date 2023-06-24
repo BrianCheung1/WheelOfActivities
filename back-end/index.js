@@ -1,5 +1,9 @@
+require("dotenv").config()
 const express = require("express")
+const Wheel = require("./models/wheel")
 const app = express()
+const cors = require("cors")
+app.use(cors())
 
 const requestLogger = (request, response, next) => {
   console.log("Method:", request.method)
@@ -16,30 +20,43 @@ const unknownEndpoint = (request, response) => {
 app.use(express.json())
 app.use(requestLogger)
 
-let notes = [
-  {
-    id: 1,
-    content: "HTML is easy",
-    important: true,
-  },
-  {
-    id: 2,
-    content: "Browser can execute only JavaScript",
-    important: false,
-  },
-  {
-    id: 3,
-    content: "GET and POST are the most important methods of HTTP protocol",
-    important: true,
-  },
-]
-
 app.get("/", (request, response) => {
   response.send("<h1>Hello World!</h1>")
 })
 
-app.get("/api/notes", (request, response) => {
-  response.json(notes)
+app.get("/api/wheels", (request, response) => {
+  Wheel.find({}).then((Wheels) => {
+    response.json(Wheels)
+  })
+})
+
+app.post("/api/wheels", (request, response) => {
+  const body = request.body
+  if (body.content === undefined) {
+    return response.status(400).json({ error: "content mising" })
+  }
+  const wheel = new Wheel({
+    content: body.content,
+  })
+
+  wheel.save().then((savedWheel) => {
+    response.json(savedWheel)
+  })
+})
+
+app.get("/api/wheels/:id", (request, response) => {
+  Wheel.findById(request.params.id)
+    .then((wheel) => {
+      if (wheel) {
+        response.json(wheel)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+      response.status(400).send({ error: "malformatted id" })
+    })
 })
 
 app.use(unknownEndpoint)
