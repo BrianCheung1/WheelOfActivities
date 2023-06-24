@@ -40,6 +40,11 @@ const Wheel = () => {
     getInitialWheel()
   }, [])
 
+  const handleDelete = async (id) => {
+    const deletedWheel = await wheelServices.remove(id)
+    setSlices(slices.filter((s) => (s.id !== id ? s : deletedWheel)))
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     const activity = event.target.activity.value
@@ -91,36 +96,56 @@ const Wheel = () => {
         </Col>
       </Row>
       <Row className="justify-content-center">
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
+        {/* <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
           <div className="arrow"></div>
-        </Col>
+        </Col> */}
       </Row>
       <Row className="circle-container text-center justify-content-center">
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
-          <div
-            className={`circle ${spinning ? "spinning" : ""}`}
-            style={{ "--randomAngle": `${randomAngle}deg` }}
-          >
-            {slices.toReversed().map((slice, index) => (
-              <div
-                className="slice"
-                key={index}
-                style={{
-                  transform: `rotate(${(360 / slices.length) * index}deg)`,
-                  // backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
-                }}
-              >
+        {slices.length === 1 ? (
+          <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
+            <div className={`circle ${spinning ? "spinning" : ""}`}>
+              {slices.toReversed().map((slice, index) => (
+                <div className="slice" key={index}>
+                  <div className="text">{slice.content}</div>
+                </div>
+              ))}
+            </div>
+          </Col>
+        ) : (
+          <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
+            <div
+              className={`circle ${spinning ? "spinning" : ""}`}
+              style={{ "--randomAngle": `${randomAngle}deg` }}
+            >
+              {slices.toReversed().map((slice, index) => (
                 <div
-                  className="text"
+                  className="slice"
+                  key={index}
                   style={{
-                    transform: ` rotate(${360 / slices.length / 2}deg)`,
+                    transform: `rotate(${(360 / slices.length) * index}deg)`,
+                    // backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
                   }}
                 >
-                  {slice.content}
+                  <div
+                    className="text"
+                    style={{
+                      transform: ` rotate(${360 / slices.length / 2}deg)`,
+                    }}
+                  >
+                    {slice.content}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </Col>
+        )}
+        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
+          {slices.toReversed().map((slice) => (
+            <li key={slice.id}>
+              {slice.content}{" "}
+              <Button onClick={() => handleDelete(slice.id)}>Delete</Button>
+            </li>
+          ))}
         </Col>
       </Row>
       <Row className="text-center justify-content-center">
