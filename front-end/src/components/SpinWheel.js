@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import wheelServices from "../services/wheels"
+import Table from "react-bootstrap/Table"
 
 const Notification = ({ show, handleClose, winner }) => {
   return (
@@ -140,12 +141,20 @@ const Wheel = () => {
           </Col>
         )}
         <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
-          {slices.toReversed().map((slice) => (
-            <li key={slice.id}>
-              {slice.content}{" "}
-              <Button onClick={() => handleDelete(slice.id)}>Delete</Button>
-            </li>
-          ))}
+          <Table variant="dark" hover borderless={true} > 
+            <tbody>
+              {slices.toReversed().map((slice) => (
+                <tr>
+                  <td key={slice.id}>{slice.content} </td>
+                  <td>
+                    <Button onClick={() => handleDelete(slice.id)}>
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         </Col>
       </Row>
       <Row className="text-center justify-content-center">
