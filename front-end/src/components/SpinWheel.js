@@ -6,7 +6,8 @@ import Modal from "react-bootstrap/Modal"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import wheelServices from "../services/wheels"
-import Table from "react-bootstrap/Table"
+import ActivitiesList from "./ActivitiesList"
+import ActivitesForm from "./ActivitiesForm"
 
 const Notification = ({ show, handleClose, winner }) => {
   return (
@@ -41,17 +42,11 @@ const Wheel = () => {
     getInitialWheel()
   }, [])
 
-  const handleDelete = async (id) => {
-    const deletedWheel = await wheelServices.remove(id)
-    setSlices(slices.filter((s) => (s.id !== id ? s : deletedWheel)))
-  }
-
   const handleSubmit = async (event) => {
     event.preventDefault()
     const activity = event.target.activity.value
     const addedActivity = await wheelServices.create({ content: activity })
     setSlices(slices.concat(addedActivity))
-
     event.target.activity.value = ""
   }
 
@@ -78,28 +73,8 @@ const Wheel = () => {
 
   return (
     <Container fluid>
-      {console.log(slices)}
       <Row className="text-center justify-content-center">
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
-              <Form.Label>Activity</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Activity"
-                id="activity"
-              />
-            </Form.Group>
-            <Button variant="primary" type="submit">
-              Add Activity
-            </Button>
-          </Form>
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        {/* <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
-          <div className="arrow"></div>
-        </Col> */}
+        <ActivitesForm setSlices={setSlices} slices={slices} />
       </Row>
       <Row className="circle-container text-center justify-content-center">
         {slices.length === 1 ? (
@@ -140,22 +115,7 @@ const Wheel = () => {
             </div>
           </Col>
         )}
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
-          <Table variant="dark" hover borderless={true} > 
-            <tbody>
-              {slices.toReversed().map((slice) => (
-                <tr>
-                  <td key={slice.id}>{slice.content} </td>
-                  <td>
-                    <Button onClick={() => handleDelete(slice.id)}>
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Col>
+        <ActivitiesList slices={slices} setSlices={setSlices} />
       </Row>
       <Row className="text-center justify-content-center">
         <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
