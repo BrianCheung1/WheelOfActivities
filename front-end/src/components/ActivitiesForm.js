@@ -9,8 +9,12 @@ const ActivitesForm = ({ setSlices, slices }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     const activity = event.target.activity.value
-    const addedActivity = await wheelServices.create({ content: activity })
-    setSlices(slices.concat(addedActivity))
+    try {
+      const addedActivity = await wheelServices.create({ content: activity })
+      setSlices(slices.concat(addedActivity))
+    } catch {
+      console.log("error adding activity")
+    }
     event.target.activity.value = ""
   }
 
