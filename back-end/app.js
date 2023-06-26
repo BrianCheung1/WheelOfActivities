@@ -3,9 +3,12 @@ const express = require("express")
 const app = express()
 const cors = require("cors")
 const wheelsRouter = require("./controller/wheel")
+const usersRouter = require("./controller/users")
+const loginRouter = require("./controller/login")
 const middleware = require("./utils/middleware")
 const logger = require("./utils/logger")
 const mongoose = require("mongoose")
+require("express-async-errors")
 
 mongoose.set("strictQuery", false)
 
@@ -21,12 +24,12 @@ mongoose
   })
 
 app.use(cors())
-app.use(express.static("build"))
 app.use(express.json())
 app.use(middleware.requestLogger)
 
 app.use("/api/wheels", wheelsRouter)
-
+app.use("/api/users", usersRouter)
+app.use("/api/login", loginRouter)
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 
