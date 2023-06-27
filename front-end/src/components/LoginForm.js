@@ -1,14 +1,51 @@
 import Button from "react-bootstrap/Button"
-import Col from "react-bootstrap/Col"
-import Table from "react-bootstrap/Table"
 import Form from "react-bootstrap/Form"
 import { useEffect, useState } from "react"
 import loginService from "../services/login"
 import wheelService from "../services/wheels"
+import Modal from "react-bootstrap/Modal"
+import Container from "react-bootstrap/Container"
+
+function MyVerticallyCenteredModal({ show, setUser, onHide }) {
+  const handleLogout = () => {
+    window.localStorage.removeItem("loggedWheelAppUser")
+    setUser("")
+    onHide()
+  }
+
+  return (
+    <Modal
+      show={show}
+      onHide={() => onHide}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Modal heading
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <h4>Centered Modal</h4>
+        <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+          consectetur ac, vestibulum at eros.
+        </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={onHide}>Cancel</Button>
+        <Button onClick={() => handleLogout()}>Logout</Button>
+      </Modal.Footer>
+    </Modal>
+  )
+}
 
 const LoginForm = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [modalShow, setModalShow] = useState(false)
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -34,17 +71,17 @@ const LoginForm = () => {
     }
   }
 
-  const handleLogout = () => {
-    window.localStorage.removeItem("loggedWheelAppUser")
-    setUser("")
-  }
-
   return (
-    <div>
+    <Container fluid>
+      <MyVerticallyCenteredModal
+        show={modalShow}
+        setUser={setUser}
+        onHide={() => setModalShow(false)}
+      />
       {user && (
         <p>
           {user.name} is logged in{" "}
-          <Button onClick={handleLogout}>Logout</Button>
+          <Button onClick={() => setModalShow(true)}>Logout</Button>
         </p>
       )}
       {!user && (
@@ -70,7 +107,7 @@ const LoginForm = () => {
           </Button>
         </Form>
       )}
-    </div>
+    </Container>
   )
 }
 

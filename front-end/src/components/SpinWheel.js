@@ -72,7 +72,14 @@ const Wheel = ({ handleNotification }) => {
           handleNotification={handleNotification}
         />
       </Row>
-      <Row className="circle-container text-center justify-content-center">
+      <Row className="circle-container text-center justify-content-center align-items-center">
+        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
+          <Button onClick={spinWheel} disabled={turning}>
+            Spin the Wheel
+          </Button>
+          <Notification winner={winner} handleClose={handleClose} show={show} />
+        </Col>
+
         {slices.length === 1 ? (
           <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
             <div
@@ -114,18 +121,12 @@ const Wheel = ({ handleNotification }) => {
             </div>
           </Col>
         )}
-        <ActivitiesList
-          slices={slices}
-          setSlices={setSlices}
-          handleNotification={handleNotification}
-        />
-      </Row>
-      <Row className="text-center justify-content-center">
         <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
-          <Button onClick={spinWheel} disabled={turning}>
-            Spin the Wheel
-          </Button>
-          <Notification winner={winner} handleClose={handleClose} show={show} />
+          <ActivitiesList
+            slices={slices}
+            setSlices={setSlices}
+            handleNotification={handleNotification}
+          />
         </Col>
       </Row>
     </Container>
