@@ -34,9 +34,19 @@ const LoginForm = () => {
     }
   }
 
+  const handleLogout = () => {
+    window.localStorage.removeItem("loggedWheelAppUser")
+    setUser("")
+  }
+
   return (
     <div>
-      {user && <p>{user.name} is logged in</p>}
+      {user && (
+        <p>
+          {user.name} is logged in{" "}
+          <Button onClick={handleLogout}>Logout</Button>
+        </p>
+      )}
       {!user && (
         <Form onSubmit={handleLogin}>
           <Form.Group className="mb-3">
