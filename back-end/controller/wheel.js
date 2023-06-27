@@ -25,14 +25,15 @@ wheelsRouter.post("/", userExtractor, async (request, response, next) => {
   }
   wheel.user = user._id
 
-  const savedWheel = await wheel.save()
+  let savedWheel = await wheel.save()
   user.wheels = user.wheels.concat(savedWheel._id)
   await user.save()
+  savedWheel = await Wheel.findById(savedWheel._id).populate("user")
   response.json(savedWheel)
 })
 
 wheelsRouter.get("/:id", async (request, response, next) => {
-  const wheel = await Wheel.findById(request.params.id)
+  const wheel = await Wheel.findById(request.params.id).populate("user")
   response.json(wheel)
 })
 
@@ -50,11 +51,12 @@ wheelsRouter.delete("/:id", userExtractor, async (request, response, next) => {
 
 wheelsRouter.put("/:id", async (request, response, next) => {
   const { content } = request.body
-  const updatedWheel = await blog.findByIdAndUpdate(
+  const updatedWheel = await Wheel.findByIdAndUpdate(
     request.params.id,
     { content },
     { new: true }
   )
+  updatedWheel = await Wheel.findById(updatedWheel._id).populate("user")
   response.json(updatedWheel)
 })
 

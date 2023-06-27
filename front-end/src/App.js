@@ -1,26 +1,34 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Navigationbar from "./components/Navbar"
 import SpinWheel from "./components/SpinWheel"
 import LoginForm from "./components/LoginForm"
-import Notification from "./components/Notification"
+import { Routes, Route, Link, useNavigate } from "react-router-dom"
+import { useInitialization } from "./hooks/index"
+import { useSelector } from "react-redux"
 
 const App = () => {
-  const [notification, setNotification] = useState("")
-  const [type, setType] = useState("primary")
+  const stateInitializer = useInitialization()
+  const user = useSelector(({ user }) => user)
+  const navigate = useNavigate()
+  useEffect(() => {
+    stateInitializer()
+  }, [])
 
-  const handleNotification = (message) => {
-    setNotification(message)
-    setTimeout(() => {
-      setNotification("")
-    }, 3000)
+  if (!user) {
+    return (
+      <>
+        <LoginForm />
+      </>
+    )
   }
 
   return (
     <div>
       <Navigationbar />
-      <Notification message={notification} type={type} />
-      <LoginForm />
-      <SpinWheel handleNotification={handleNotification} />
+      <Routes>
+        <Route path="/" element={<SpinWheel />}></Route>
+        <Route path="/login" element={<LoginForm />}></Route>
+      </Routes>
     </div>
   )
 }

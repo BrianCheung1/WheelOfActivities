@@ -1,21 +1,20 @@
 import Button from "react-bootstrap/Button"
-
-import Col from "react-bootstrap/Col"
 import Table from "react-bootstrap/Table"
-import wheelServices from "../services/wheels"
+import { useDispatch, useSelector } from "react-redux"
+import { removeWheel } from "../reducers/wheels"
 
-const ActivitiesList = ({ slices, setSlices, handleNotification }) => {
+const ActivitiesList = () => {
+  const wheels = useSelector(({ wheels }) => wheels)
+  const dispatch = useDispatch()
+
   const handleDelete = async (slice) => {
-    
-    const deletedWheel = await wheelServices.remove(slice.id)
-    setSlices(slices.filter((s) => (s.id !== slice.id ? s : deletedWheel)))
-    handleNotification(`Deleted activity ${slice.content}`, "success")
+    dispatch(removeWheel(slice))
   }
 
   return (
     <Table variant="dark" hover borderless={true}>
       <tbody>
-        {slices.toReversed().map((slice) => (
+        {wheels.toReversed().map((slice) => (
           <tr key={slice.id}>
             <td>{slice.content} </td>
             <td>

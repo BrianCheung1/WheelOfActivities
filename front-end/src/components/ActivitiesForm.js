@@ -2,20 +2,18 @@ import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import Col from "react-bootstrap/Col"
 import wheelServices from "../services/wheels"
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { addWheel } from "../reducers/wheels"
 
-const ActivitesForm = ({ setSlices, slices, handleNotification }) => {
+const ActivitesForm = () => {
+  const [content, setContent] = useState("")
+  const dispatch = useDispatch()
+
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const activity = event.target.activity.value
-    try {
-      const addedActivity = await wheelServices.create({ content: activity })
-      setSlices(slices.concat(addedActivity))
-      handleNotification(`${addedActivity.content} added`, "success")
-    } catch (exception) {
-      console.log("Activites Form Error ", exception)
-      handleNotification(`Error adding activity`, "danger")
-    }
-    event.target.activity.value = ""
+    dispatch(addWheel({ content }))
+    setContent("")
   }
 
   return (
@@ -27,6 +25,7 @@ const ActivitesForm = ({ setSlices, slices, handleNotification }) => {
             type="text"
             placeholder="Enter Activity"
             id="activity"
+            onChange={({ target }) => setContent(target.value)}
           />
         </Form.Group>
         <Button variant="primary" type="submit">

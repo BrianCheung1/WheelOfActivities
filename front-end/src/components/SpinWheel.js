@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col"
 import wheelServices from "../services/wheels"
 import ActivitiesList from "./ActivitiesList"
 import ActivitesForm from "./ActivitiesForm"
+import { useSelector } from "react-redux"
 
 const Notification = ({ show, handleClose, winner }) => {
   return (
@@ -33,15 +34,8 @@ const Wheel = ({ handleNotification }) => {
   const [show, setShow] = useState(false)
   const [turning, setTurning] = useState(false)
   const handleClose = () => setShow(false)
-  const getInitialWheel = async () => {
-    const wheel = await wheelServices.getAll()
-    setSlices(wheel)
-  }
 
-  useEffect(() => {
-    getInitialWheel()
-  }, [])
-
+  const wheels = useSelector(({ wheels }) => wheels)
   const spinWheel = () => {
     const newRandomAngle = Math.floor(Math.random() * 36 * 100)
     console.log(newRandomAngle)
@@ -65,7 +59,7 @@ const Wheel = ({ handleNotification }) => {
 
   return (
     <Container fluid>
-      <Row className="text-center justify-content-center">
+      {/* <Row className="text-center justify-content-center">
         <ActivitesForm
           setSlices={setSlices}
           slices={slices}
@@ -128,7 +122,13 @@ const Wheel = ({ handleNotification }) => {
             handleNotification={handleNotification}
           />
         </Col>
-      </Row>
+      </Row> */}
+      <Col>
+        <ActivitesForm />
+      </Col>
+      <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
+        <ActivitiesList />
+      </Col>
     </Container>
   )
 }
