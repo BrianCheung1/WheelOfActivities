@@ -25,7 +25,7 @@ const Notification = ({ show, handleClose, winner }) => {
   )
 }
 
-const Wheel = () => {
+const Wheel = ({ handleNotification }) => {
   const [slices, setSlices] = useState([])
   const [spinning, setSpinning] = useState(false)
   const [randomAngle, setRandomAngle] = useState(0)
@@ -41,14 +41,6 @@ const Wheel = () => {
   useEffect(() => {
     getInitialWheel()
   }, [])
-
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    const activity = event.target.activity.value
-    const addedActivity = await wheelServices.create({ content: activity })
-    setSlices(slices.concat(addedActivity))
-    event.target.activity.value = ""
-  }
 
   const spinWheel = () => {
     const newRandomAngle = Math.floor(Math.random() * 36 * 100)
@@ -74,12 +66,19 @@ const Wheel = () => {
   return (
     <Container fluid>
       <Row className="text-center justify-content-center">
-        <ActivitesForm setSlices={setSlices} slices={slices} />
+        <ActivitesForm
+          setSlices={setSlices}
+          slices={slices}
+          handleNotification={handleNotification}
+        />
       </Row>
       <Row className="circle-container text-center justify-content-center">
         {slices.length === 1 ? (
           <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
-            <div className={`circle ${spinning ? "spinning" : ""}`}>
+            <div
+              className={`circle ${spinning ? "spinning" : ""}`}
+              style={{ "--randomAngle": `${randomAngle}deg` }}
+            >
               {slices.toReversed().map((slice, index) => (
                 <div className="slice" key={index}>
                   <div className="text">{slice.content}</div>
@@ -115,7 +114,11 @@ const Wheel = () => {
             </div>
           </Col>
         )}
-        <ActivitiesList slices={slices} setSlices={setSlices} />
+        <ActivitiesList
+          slices={slices}
+          setSlices={setSlices}
+          handleNotification={handleNotification}
+        />
       </Row>
       <Row className="text-center justify-content-center">
         <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">

@@ -1,19 +1,19 @@
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
-import Container from "react-bootstrap/Container"
-import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import wheelServices from "../services/wheels"
 
-const ActivitesForm = ({ setSlices, slices }) => {
+const ActivitesForm = ({ setSlices, slices, handleNotification }) => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     const activity = event.target.activity.value
     try {
       const addedActivity = await wheelServices.create({ content: activity })
       setSlices(slices.concat(addedActivity))
-    } catch {
-      console.log("error adding activity")
+      handleNotification(`${addedActivity.content} added`, "success")
+    } catch (exception) {
+      console.log("Activites Form Error ", exception)
+      handleNotification(`Error adding activity`, "danger")
     }
     event.target.activity.value = ""
   }

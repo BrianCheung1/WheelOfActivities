@@ -20,7 +20,11 @@ const create = async (wheel) => {
 }
 
 const remove = async (id) => {
-  await axios.delete(`${baseUrl}/${id}`)
+  const config = {
+    headers: { Authorization: token },
+  }
+
+  await axios.delete(`${baseUrl}/${id}`, config)
 }
 
 export default { getAll, create, remove, setToken }

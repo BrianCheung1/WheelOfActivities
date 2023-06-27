@@ -4,10 +4,11 @@ import Col from "react-bootstrap/Col"
 import Table from "react-bootstrap/Table"
 import wheelServices from "../services/wheels"
 
-const ActivitiesList = ({ slices, setSlices }) => {
-  const handleDelete = async (id) => {
-    const deletedWheel = await wheelServices.remove(id)
-    setSlices(slices.filter((s) => (s.id !== id ? s : deletedWheel)))
+const ActivitiesList = ({ slices, setSlices, handleNotification }) => {
+  const handleDelete = async (slice) => {
+    const deletedWheel = await wheelServices.remove(slice.id)
+    setSlices(slices.filter((s) => (s.id !== slice.id ? s : deletedWheel)))
+    handleNotification(`Deleted activity ${slice.content}`, "success")
   }
 
   return (
@@ -18,7 +19,7 @@ const ActivitiesList = ({ slices, setSlices }) => {
             <tr key={slice.id}>
               <td>{slice.content} </td>
               <td>
-                <Button onClick={() => handleDelete(slice.id)}>Delete</Button>
+                <Button onClick={() => handleDelete(slice)}>Delete</Button>
               </td>
             </tr>
           ))}

@@ -10,6 +10,10 @@ wheelsRouter.get("/", async (request, response) => {
 wheelsRouter.post("/", userExtractor, async (request, response, next) => {
   const { content } = request.body
 
+  if (!content) {
+    return response.status(401).json({ error: "Missing Content" })
+  }
+
   const wheel = new Wheel({
     content: content,
   })
@@ -35,7 +39,7 @@ wheelsRouter.get("/:id", async (request, response, next) => {
 wheelsRouter.delete("/:id", userExtractor, async (request, response, next) => {
   const wheel = await Wheel.findById(request.params.id)
   const user = request.user
-  if (!user || blog.user.toString() !== user.id.toString()) {
+  if (!user || wheel.user.toString() !== user.id.toString()) {
     return response.status(401).json({ error: "Operation not permitted" })
   }
   user.wheels = user.wheels.filter((w) => w.toString() !== wheel.id.toString())
