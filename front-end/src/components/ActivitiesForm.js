@@ -14,6 +14,7 @@ const ActivitesForm = () => {
     event.preventDefault()
     dispatch(addWheel({ content }))
     setContent("")
+    event.target.activity.value = ""
   }
 
   return (

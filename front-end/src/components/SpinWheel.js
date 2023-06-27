@@ -27,7 +27,6 @@ const Notification = ({ show, handleClose, winner }) => {
 }
 
 const Wheel = ({ handleNotification }) => {
-  const [slices, setSlices] = useState([])
   const [spinning, setSpinning] = useState(false)
   const [randomAngle, setRandomAngle] = useState(0)
   const [winner, setWinner] = useState("")
@@ -36,6 +35,7 @@ const Wheel = ({ handleNotification }) => {
   const handleClose = () => setShow(false)
 
   const wheels = useSelector(({ wheels }) => wheels)
+
   const spinWheel = () => {
     const newRandomAngle = Math.floor(Math.random() * 36 * 100)
     console.log(newRandomAngle)
@@ -47,8 +47,8 @@ const Wheel = ({ handleNotification }) => {
       setSpinning(true)
     }, 100)
     setWinner(
-      slices.at(
-        (Math.ceil(newRandomAngle / (360 / slices.length)) % slices.length) - 1
+      wheels.at(
+        (Math.ceil(newRandomAngle / (360 / wheels.length)) % wheels.length) - 1
       )
     )
     setTimeout(() => {
@@ -59,12 +59,10 @@ const Wheel = ({ handleNotification }) => {
 
   return (
     <Container fluid>
-      {/* <Row className="text-center justify-content-center">
-        <ActivitesForm
-          setSlices={setSlices}
-          slices={slices}
-          handleNotification={handleNotification}
-        />
+      <Row>
+        <Col>
+          <ActivitesForm />
+        </Col>
       </Row>
       <Row className="circle-container text-center justify-content-center align-items-center">
         <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
@@ -74,13 +72,13 @@ const Wheel = ({ handleNotification }) => {
           <Notification winner={winner} handleClose={handleClose} show={show} />
         </Col>
 
-        {slices.length === 1 ? (
+        {wheels.length === 1 ? (
           <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
             <div
               className={`circle ${spinning ? "spinning" : ""}`}
               style={{ "--randomAngle": `${randomAngle}deg` }}
             >
-              {slices.toReversed().map((slice, index) => (
+              {wheels.toReversed().map((slice, index) => (
                 <div className="slice" key={index}>
                   <div className="text">{slice.content}</div>
                 </div>
@@ -93,19 +91,19 @@ const Wheel = ({ handleNotification }) => {
               className={`circle ${spinning ? "spinning" : ""}`}
               style={{ "--randomAngle": `${randomAngle}deg` }}
             >
-              {slices.toReversed().map((slice, index) => (
+              {wheels.toReversed().map((slice, index) => (
                 <div
                   className="slice"
                   key={index}
                   style={{
-                    transform: `rotate(${(360 / slices.length) * index}deg)`,
+                    transform: `rotate(${(360 / wheels.length) * index}deg)`,
                     // backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
                   }}
                 >
                   <div
                     className="text"
                     style={{
-                      transform: ` rotate(${360 / slices.length / 2}deg)`,
+                      transform: ` rotate(${360 / wheels.length / 2}deg)`,
                     }}
                   >
                     {slice.content}
@@ -115,17 +113,8 @@ const Wheel = ({ handleNotification }) => {
             </div>
           </Col>
         )}
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
-          <ActivitiesList
-            slices={slices}
-            setSlices={setSlices}
-            handleNotification={handleNotification}
-          />
-        </Col>
-      </Row> */}
-      <Col>
-        <ActivitesForm />
-      </Col>
+      </Row>
+
       <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
         <ActivitiesList />
       </Col>
