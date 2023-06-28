@@ -3,7 +3,10 @@ const Wheel = require("../models/wheel")
 const { userExtractor } = require("../utils/middleware")
 
 wheelsRouter.get("/", async (request, response) => {
-  const wheels = await Wheel.find({}).populate("user", { username: 1, name: 1 })
+  const wheels = await Wheel.find({}).populate("user", {
+    username: 1,
+    name: 1,
+  })
   response.json(wheels)
 })
 

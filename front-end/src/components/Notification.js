@@ -1,21 +1,29 @@
-import Button from "react-bootstrap/Button"
-import Col from "react-bootstrap/Col"
-import Table from "react-bootstrap/Table"
-import Form from "react-bootstrap/Form"
-import { useEffect, useState } from "react"
-import loginService from "../services/login"
-import wheelService from "../services/wheels"
+import { useSelector } from "react-redux"
 import Alert from "react-bootstrap/Alert"
+import Container from "react-bootstrap/Container"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
 
-const Notification = ({ message, type }) => {
+const Notification = () => {
+  const message = useSelector(({ notification }) => notification)
+
+  if (!message.message) {
+    return
+  }
   return (
-    <div>
-      {message && (
-        <Alert key={type} variant={type}>
-          {message}
-        </Alert>
-      )}
-    </div>
+    <Container fluid>
+      <Row className="justify-content-center">
+        <Col xs={6}>
+          <Alert
+            key={message.type}
+            variant={message.type}
+            
+          >
+            {message.message}
+          </Alert>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 

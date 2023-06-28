@@ -4,6 +4,15 @@ import { initializeWheels } from "../reducers/wheels"
 import { initializeUsers } from "../reducers/users"
 import { initUser, clearUser } from "../reducers/user"
 import { useState } from "react"
+import { notify } from "../reducers/notification"
+
+export const useNotification = () => {
+  const dispatch = useDispatch()
+
+  return (message, type = "success") => {
+    dispatch(notify(message, type))
+  }
+}
 
 export const useInitialization = () => {
   const dispatch = useDispatch()

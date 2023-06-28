@@ -14,23 +14,20 @@ const Navigationbar = () => {
   }
 
   return (
-    <Navbar
-      collapseOnSelect
-      expand="lg"
-      className="bg-body-tertiary"
-      data-bs-theme="dark"
-      bg="dark"
-    >
-      <Container fluid>
+    <Container fluid>
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        // className="bg-body-tertiary"
+      >
         <Navbar.Brand href="">Home</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="align-items-center">
             <Nav.Link href="/">Wheel</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
             {!user && <Nav.Link href="/login">Login</Nav.Link>}
             {user && (
-              <Nav.Link>
+              <Nav.Link href={`/user-${user.id}`}>
                 {user.name} logged in{" "}
                 <Button variant="outline-danger" onClick={logout}>
                   Logout
@@ -39,8 +36,8 @@ const Navigationbar = () => {
             )}
           </Nav>
         </Navbar.Collapse>
-      </Container>
-    </Navbar>
+      </Navbar>
+    </Container>
   )
 }
 export default Navigationbar

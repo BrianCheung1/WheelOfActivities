@@ -1,6 +1,7 @@
 import wheelService from "../services/wheels"
 
 import { createSlice } from "@reduxjs/toolkit"
+import { notify } from "./notification"
 
 const slice = createSlice({
   name: "wheels",
@@ -32,8 +33,13 @@ export const initializeWheels = () => {
 
 export const addWheel = (object) => {
   return async (dispatch) => {
-    const data = await wheelService.create(object)
-    dispatch(add(data))
+    try {
+      const data = await wheelService.create(object)
+      dispatch(add(data))
+      dispatch(notify(`successfully added ${object.content}`))
+    } catch (e) {
+      dispatch(notify(`${e.response.data.error}`, "danger"))
+    }
   }
 }
 
@@ -46,8 +52,13 @@ export const updateWheel = (object) => {
 
 export const removeWheel = (object) => {
   return async (dispatch) => {
-    await wheelService.remove(object.id)
-    dispatch(remove(object.id))
+    try {
+      await wheelService.remove(object.id)
+      dispatch(remove(object.id))
+      dispatch(notify(`successfully added ${object.content}`))
+    } catch (e) {
+      dispatch(notify(`${e.response.data.error}`, "danger"))
+    }
   }
 }
 

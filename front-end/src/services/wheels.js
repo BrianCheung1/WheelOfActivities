@@ -26,4 +26,8 @@ const remove = async (id) => {
   await axios.delete(`${baseUrl}/${id}`, { headers })
 }
 
+const spin = async() => {
+  await axios.put(baseUrl)
+}
+
 export default { getAll, create, remove }

@@ -6,43 +6,7 @@ import Container from "react-bootstrap/Container"
 import { useField } from "../hooks"
 import { useDispatch, useSelector } from "react-redux"
 import { loginUser } from "../reducers/user"
-import { useNavigate } from "react-router-dom"
-
-// function MyVerticallyCenteredModal({ show, setUser, onHide }) {
-//   const handleLogout = () => {
-//     window.localStorage.removeItem("loggedWheelAppUser")
-//     setUser("")
-//     onHide()
-//   }
-
-//   return (
-//     <Modal
-//       show={show}
-//       onHide={() => onHide}
-//       size="lg"
-//       aria-labelledby="contained-modal-title-vcenter"
-//       centered
-//     >
-//       <Modal.Header closeButton>
-//         <Modal.Title id="contained-modal-title-vcenter">
-//           Modal heading
-//         </Modal.Title>
-//       </Modal.Header>
-//       <Modal.Body>
-//         <h4>Centered Modal</h4>
-//         <p>
-//           Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-//           dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-//           consectetur ac, vestibulum at eros.
-//         </p>
-//       </Modal.Body>
-//       <Modal.Footer>
-//         <Button onClick={onHide}>Cancel</Button>
-//         <Button onClick={() => handleLogout()}>Logout</Button>
-//       </Modal.Footer>
-//     </Modal>
-//   )
-// }
+import { useNotification } from "../hooks/index"
 
 const LoginForm = () => {
   const username = useField("text")
@@ -50,10 +14,17 @@ const LoginForm = () => {
   const [modalShow, setModalShow] = useState(false)
 
   const dispatch = useDispatch()
+  const notifyWith = useNotification()
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    dispatch(loginUser({ username: username.value, password: password.value }))
+    try {
+      dispatch(
+        loginUser({ username: username.value, password: password.value })
+      )
+    } catch (e) {
+      notifyWith("Wrong username or password", "danger")
+    }
   }
 
   return (

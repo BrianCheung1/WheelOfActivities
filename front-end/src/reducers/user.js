@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 import loginService from "../services/login"
 import storageService from "../services/storage"
-import wheels from "../services/wheels"
-import wheelService from "../services/wheels"
+import { notify } from "./notification"
 
 const initialState = null
 
@@ -24,9 +23,14 @@ export const { set, clear } = slice.actions
 
 export const loginUser = (credentials) => {
   return async (dispatch) => {
-    const user = await loginService.login(credentials)
-    storageService.saveUser(user)
-    dispatch(set(user))
+    try {
+      const user = await loginService.login(credentials)
+      storageService.saveUser(user)
+      dispatch(set(user))
+      dispatch(notify(`welcome`))
+    } catch (exception) {
+      dispatch(notify(`${exception.response.data.error}`, "danger"))
+    }
   }
 }
 
