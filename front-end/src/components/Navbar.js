@@ -28,11 +28,13 @@ const Navigationbar = () => {
             {!user && <Nav.Link href="/login">Login</Nav.Link>}
             {user && (
               <Nav.Link href={`/user-${user.id}`}>
-                {user.name} logged in{" "}
-                <Button variant="outline-danger" onClick={logout}>
-                  Logout
-                </Button>
+                {user.name} logged in
               </Nav.Link>
+            )}
+            {user && (
+              <Button variant="outline-danger" onClick={logout}>
+                Logout
+              </Button>
             )}
           </Nav>
         </Navbar.Collapse>

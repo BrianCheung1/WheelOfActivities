@@ -55,7 +55,7 @@ export const removeWheel = (object) => {
     try {
       await wheelService.remove(object.id)
       dispatch(remove(object.id))
-      dispatch(notify(`successfully added ${object.content}`))
+      dispatch(notify(`Successfully deleted ${object.content}`))
     } catch (e) {
       dispatch(notify(`${e.response.data.error}`, "danger"))
     }

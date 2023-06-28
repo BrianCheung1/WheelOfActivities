@@ -16,7 +16,7 @@ const Profile = () => {
         <Col xs={4}>
           <Card className="text-center">
             <Card.Header as="h5">
-              {user.name[0].toUpperCase() + user.name.slice(1)}
+              {user.name[0].toUpperCase() + user.name.slice(1)}'s Profile
             </Card.Header>
           </Card>
           <Accordion defaultActiveKey="0">

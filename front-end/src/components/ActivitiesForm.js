@@ -17,7 +17,7 @@ const ActivitesForm = () => {
   }
 
   return (
-    <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
+    <div className="activies-form-container">
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>Activity</Form.Label>
@@ -32,7 +32,7 @@ const ActivitesForm = () => {
           Add Activity
         </Button>
       </Form>
-    </Col>
+    </div>
   )
 }
 

@@ -12,13 +12,9 @@ const Notification = () => {
   }
   return (
     <Container fluid>
-      <Row className="justify-content-center">
-        <Col xs={6}>
-          <Alert
-            key={message.type}
-            variant={message.type}
-            
-          >
+      <Row className="justify-content-center align-items-center text-center">
+        <Col xs={4} className="notification-container">
+          <Alert key={message.type} variant={message.type}>
             {message.message}
           </Alert>
         </Col>

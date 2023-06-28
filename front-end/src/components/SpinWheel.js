@@ -118,8 +118,15 @@ const Wheel = ({ handleNotification }) => {
             </div>
           </Col>
         )}
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
-          <ActivitiesList wheels={wheels}/>
+        <Col
+          xs="auto"
+          sm="auto"
+          md="auto"
+          lg="auto"
+          xl="auto"
+          xxl="auto"
+        >
+          <ActivitiesList wheels={wheels} />
         </Col>
       </Row>
     </Container>
