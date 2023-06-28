@@ -33,8 +33,13 @@ const Wheel = ({ handleNotification }) => {
   const [show, setShow] = useState(false)
   const [turning, setTurning] = useState(false)
   const handleClose = () => setShow(false)
+  const user = useSelector(({ user }) => user)
 
-  const wheels = useSelector(({ wheels }) => wheels)
+  let wheels = useSelector(({ wheels }) =>
+    [...wheels].filter((wheel) =>
+      wheel.user.username === user.username ? wheel : ""
+    )
+  )
 
   const spinWheel = () => {
     const newRandomAngle = Math.floor(Math.random() * 36 * 100)
@@ -59,8 +64,9 @@ const Wheel = ({ handleNotification }) => {
 
   return (
     <Container fluid>
-      <Row>
-        <Col>
+      {}
+      <Row className="text-center justify-content-center">
+        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
           <ActivitesForm />
         </Col>
       </Row>
@@ -113,11 +119,10 @@ const Wheel = ({ handleNotification }) => {
             </div>
           </Col>
         )}
+        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
+          <ActivitiesList wheels={wheels}/>
+        </Col>
       </Row>
-
-      <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
-        <ActivitiesList />
-      </Col>
     </Container>
   )
 }

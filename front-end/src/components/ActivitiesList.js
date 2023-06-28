@@ -3,8 +3,7 @@ import Table from "react-bootstrap/Table"
 import { useDispatch, useSelector } from "react-redux"
 import { removeWheel } from "../reducers/wheels"
 
-const ActivitiesList = () => {
-  const wheels = useSelector(({ wheels }) => wheels)
+const ActivitiesList = ({wheels}) => {
   const dispatch = useDispatch()
 
   const handleDelete = async (slice) => {

@@ -1,12 +1,9 @@
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import { useEffect, useState } from "react"
-import loginService from "../services/login"
-import wheelService from "../services/wheels"
 import Modal from "react-bootstrap/Modal"
 import Container from "react-bootstrap/Container"
 import { useField } from "../hooks"
-import userService from "../services/user"
 import { useDispatch, useSelector } from "react-redux"
 import { loginUser } from "../reducers/user"
 import { useNavigate } from "react-router-dom"
@@ -53,24 +50,10 @@ const LoginForm = () => {
   const [modalShow, setModalShow] = useState(false)
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    // loginService
-    //   .login({
-    //     username: username.value,
-    //     password: password.value,
-    //   })
-    //   .then((user) => {
-    //     userService.setUser(user)
-    //     dispatch(loginUser(user))
-    //   })
-    //   .catch(() => {
-    //     console.log("error")
-    //   })
     dispatch(loginUser({ username: username.value, password: password.value }))
-    navigate("/")
   }
 
   return (

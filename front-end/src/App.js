@@ -17,6 +17,7 @@ const App = () => {
   if (!user) {
     return (
       <>
+        <Navigationbar />
         <LoginForm />
       </>
     )

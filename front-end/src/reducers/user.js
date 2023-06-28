@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit"
 
 import loginService from "../services/login"
 import storageService from "../services/storage"
+import wheels from "../services/wheels"
+import wheelService from "../services/wheels"
 
 const initialState = null
 

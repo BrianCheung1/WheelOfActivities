@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux"
 
 import { initializeWheels } from "../reducers/wheels"
 import { initializeUsers } from "../reducers/users"
-import { initUser } from "../reducers/user"
+import { initUser, clearUser } from "../reducers/user"
 import { useState } from "react"
 
 export const useInitialization = () => {
@@ -12,6 +12,14 @@ export const useInitialization = () => {
     dispatch(initializeWheels())
     dispatch(initializeUsers())
     dispatch(initUser())
+  }
+}
+
+export const useClearUser = () => {
+  const dispatch = useDispatch()
+
+  return () => {
+    dispatch(clearUser())
   }
 }
 

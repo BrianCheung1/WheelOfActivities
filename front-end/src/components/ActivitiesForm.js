@@ -1,7 +1,6 @@
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import Col from "react-bootstrap/Col"
-import wheelServices from "../services/wheels"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { addWheel } from "../reducers/wheels"
