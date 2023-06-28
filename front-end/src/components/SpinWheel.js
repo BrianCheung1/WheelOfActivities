@@ -70,13 +70,12 @@ const Wheel = ({ handleNotification }) => {
         </Col>
       </Row>
       <Row className="circle-container text-center justify-content-center align-items-center">
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
+        <Col xs={12}>
           <Button onClick={spinWheel} disabled={turning}>
             Spin the Wheel
           </Button>
           <Notification winner={winner} handleClose={handleClose} show={show} />
         </Col>
-
         {wheels.length === 1 ? (
           <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
             <div
@@ -118,14 +117,7 @@ const Wheel = ({ handleNotification }) => {
             </div>
           </Col>
         )}
-        <Col
-          xs="auto"
-          sm="auto"
-          md="auto"
-          lg="auto"
-          xl="auto"
-          xxl="auto"
-        >
+        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
           <ActivitiesList wheels={wheels} />
         </Col>
       </Row>

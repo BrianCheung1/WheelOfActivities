@@ -36,11 +36,15 @@ code {
 
 .circle {
   position: relative;
-  width: 500px;
-  height: 500px;
+  width: 75vh;
+  height: 75vh;
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 0 0 0px #111, 0 0 0 15px #fff, 0 0 0 0px #111;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .arrow { 
@@ -74,12 +78,9 @@ code {
   padding-top: 20px;
  
 } 
-
 .circle-container {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  margin-bottom: 50px;
 }
-
 .spinning {
   animation: spin 3s ease-in-out forwards;
 }
