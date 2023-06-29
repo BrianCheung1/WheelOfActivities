@@ -10,7 +10,7 @@ const slice = createSlice({
     set(state, { payload }) {
       return payload
     },
-    add(state, { payload }) { 
+    add(state, { payload }) {
       return state.concat(payload)
     },
     remove(state, { payload }) {
@@ -58,6 +58,18 @@ export const removeWheel = (object) => {
       dispatch(notify(`Successfully deleted ${object.content}`))
     } catch (e) {
       dispatch(notify(`${e.response.data.error}`, "danger"))
+    }
+  }
+}
+
+export const removeAllWheel = (user) => {
+  return async (dispatch) => {
+    try {
+      await wheelService.removeAll(user)
+      dispatch(set([]))
+      dispatch(notify(`Successfully deleted all`))
+    } catch (e) {
+      console.log(e)
     }
   }
 }

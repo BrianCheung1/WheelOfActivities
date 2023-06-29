@@ -42,6 +42,7 @@ wheelsRouter.get("/:id", async (request, response, next) => {
 })
 
 wheelsRouter.delete("/:id", userExtractor, async (request, response, next) => {
+  console.log(request.body)
   const wheel = await Wheel.findById(request.params.id)
   const user = request.user
   if (!user || wheel.user.toString() !== user.id.toString()) {
@@ -53,7 +54,7 @@ wheelsRouter.delete("/:id", userExtractor, async (request, response, next) => {
   response.status(204).end()
 })
 
-wheelsRouter.put("/:id", async (request, response, next) => {
+wheelsRouter.put("/:id", async (request, response) => {
   const { content } = request.body
   const updatedWheel = await Wheel.findByIdAndUpdate(
     request.params.id,
@@ -63,5 +64,11 @@ wheelsRouter.put("/:id", async (request, response, next) => {
   updatedWheel = await Wheel.findById(updatedWheel._id).populate("user")
   response.json(updatedWheel)
 })
+
+wheelsRouter.delete("/", async (request, response) => {
+  const deleted = await Wheel.deleteMany({ user: request.body.id })
+  response.status(204).end()
+})
+
 
 module.exports = wheelsRouter

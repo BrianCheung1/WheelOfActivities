@@ -1,12 +1,13 @@
 import Button from "react-bootstrap/Button"
 import Table from "react-bootstrap/Table"
-import { useDispatch } from "react-redux"
-import { removeWheel } from "../reducers/wheels"
+import { useDispatch, useSelector } from "react-redux"
+import { removeWheel, removeAllWheel } from "../reducers/wheels"
 import { useState } from "react"
 
 const ActivitiesList = ({ wheels }) => {
   const [sorted, setSorted] = useState(false)
   const dispatch = useDispatch()
+  const user = useSelector(({ user }) => user)
   const handleDelete = async (slice) => {
     dispatch(removeWheel(slice))
   }
@@ -27,13 +28,24 @@ const ActivitiesList = ({ wheels }) => {
     setSorted(!sorted)
   }
 
+  const handleClear = () => {
+    dispatch(removeAllWheel(user))
+  }
+
   return (
     <div className="table-container">
       <Table variant="dark" borderless={true}>
         <thead>
           <tr>
             <th>
-              {wheels.length > 1 && <Button onClick={() => handleSort()}>Sort</Button>}
+              {wheels.length > 1 && (
+                <Button onClick={() => handleSort()}>Sort</Button>
+              )}
+            </th>
+            <th>
+              {wheels.length > 1 && (
+                <Button onClick={() => handleClear()}>Clear</Button>
+              )}
             </th>
           </tr>
         </thead>
