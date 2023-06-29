@@ -7,6 +7,7 @@ import { useSelector } from "react-redux"
 
 const Profile = () => {
   const user = useSelector(({ user }) => user)
+
   return (
     <Container fluid>
       {console.log(user)}

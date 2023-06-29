@@ -10,7 +10,7 @@ const slice = createSlice({
     set(state, { payload }) {
       return payload
     },
-    add(state, { payload }) {
+    add(state, { payload }) { 
       return state.concat(payload)
     },
     remove(state, { payload }) {

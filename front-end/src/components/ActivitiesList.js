@@ -59,8 +59,6 @@ const ActivitiesList = ({ wheels }) => {
             ))}
         </tbody>
       </Table>
-      {console.log(wheels, sortedWheel)}
-      {console.log(sorted)}
     </div>
   )
 }

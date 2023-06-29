@@ -20,7 +20,7 @@ const slice = createSlice({
   },
 })
 
-export const { set, clear } = slice.actions
+export const { set, clear, alter } = slice.actions
 
 export const loginUser = (credentials) => {
   return async (dispatch) => {
@@ -52,10 +52,13 @@ export const updateUserSpins = (id) => {
   return async (dispatch) => {
     try {
       const user = await userService.updateSpins(id)
+      const user2 = storageService.loadUser()
+      user2.spins = user.spins
+      storageService.saveUser(user2)
       dispatch(notify(`Successfully Updated Spins`))
+      dispatch(set(user))
     } catch (exception) {
-      dispatch(notify(`${exception.response.data.error}`, "danger"))
-      return exception.response.data.error
+      console.log(exception)
     }
   }
 }

@@ -16,4 +16,5 @@ const updateSpins = async (id) => {
   const response = await axios.put(`${baseUrl}/${id}`)
   return response.data
 }
+
 export default { getAll, create, updateSpins }
