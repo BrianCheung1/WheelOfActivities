@@ -6,6 +6,7 @@ wheelsRouter.get("/", async (request, response) => {
   const wheels = await Wheel.find({}).populate("user", {
     username: 1,
     name: 1,
+    spins: 1,
   })
   response.json(wheels)
 })

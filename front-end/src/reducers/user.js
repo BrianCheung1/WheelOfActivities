@@ -48,6 +48,18 @@ export const signUpUser = (credentials) => {
   }
 }
 
+export const updateUserSpins = (id) => {
+  return async (dispatch) => {
+    try {
+      const user = await userService.updateSpins(id)
+      dispatch(notify(`Successfully Updated Spins`))
+    } catch (exception) {
+      dispatch(notify(`${exception.response.data.error}`, "danger"))
+      return exception.response.data.error
+    }
+  }
+}
+
 export const initUser = () => {
   return async (dispatch) => {
     const user = storageService.loadUser()

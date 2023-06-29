@@ -7,7 +7,8 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import ActivitiesList from "./ActivitiesList"
 import ActivitesForm from "./ActivitiesForm"
-
+import { updateUserSpins } from "../reducers/user"
+import { useDispatch } from "react-redux"
 
 const Notification = ({ show, handleClose, winner }) => {
   return (
@@ -33,6 +34,7 @@ const SpinWheel = () => {
   const [turning, setTurning] = useState(false)
   const handleClose = () => setShow(false)
   const user = useSelector(({ user }) => user)
+  const dispatch = useDispatch()
 
   let wheels = useSelector(({ wheels }) =>
     [...wheels].filter((wheel) =>
@@ -58,6 +60,7 @@ const SpinWheel = () => {
     setTimeout(() => {
       setShow(true)
       setTurning(false)
+      dispatch(updateUserSpins(user.id))
     }, 3100)
   }
 
