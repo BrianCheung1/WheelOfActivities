@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import Navigationbar from "./components/Navbar"
 import SpinWheel from "./components/SpinWheel"
 import LoginForm from "./components/LoginForm"
-import { Routes, Route, Link, useNavigate } from "react-router-dom"
-import { useInitialization, useNotification } from "./hooks/index"
+import { Routes, Route } from "react-router-dom"
+import { useInitialization } from "./hooks/index"
 import { useSelector } from "react-redux"
 import Profile from "./components/Profile"
 import Notification from "./components/Notification"
+import SignUpForm from "./components/SignUpForm"
 
 const App = () => {
   const stateInitializer = useInitialization()
   const user = useSelector(({ user }) => user)
-  const notifyWith = useNotification()
   useEffect(() => {
     stateInitializer()
   }, [])
@@ -21,7 +21,11 @@ const App = () => {
       <>
         <Navigationbar />
         <Notification />
-        <LoginForm />
+        <Routes>
+          <Route path="/login" element={<LoginForm />}></Route>
+          <Route path="/signup" element={<SignUpForm />}></Route>
+          <Route path="*" element={<LoginForm />}></Route>
+        </Routes>
       </>
     )
   }
@@ -35,6 +39,7 @@ const App = () => {
         <Route path="/login" element={<LoginForm />}></Route>
         <Route path={`/user-${user.id}`} element={<Profile />}></Route>
         <Route path="*" element={<SpinWheel />}></Route>
+        <Route path="/signup" element={<SignUpForm />}></Route>
       </Routes>
     </div>
   )

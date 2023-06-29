@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react"
-import Form from "react-bootstrap/Form"
+import { useState } from "react"
+import { useSelector } from "react-redux"
 import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 import Modal from "react-bootstrap/Modal"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
-import wheelServices from "../services/wheels"
 import ActivitiesList from "./ActivitiesList"
 import ActivitesForm from "./ActivitiesForm"
-import { useSelector } from "react-redux"
 
 const Notification = ({ show, handleClose, winner }) => {
   return (
@@ -26,7 +24,7 @@ const Notification = ({ show, handleClose, winner }) => {
   )
 }
 
-const Wheel = ({ handleNotification }) => {
+const Wheel = () => {
   const [spinning, setSpinning] = useState(false)
   const [randomAngle, setRandomAngle] = useState(0)
   const [winner, setWinner] = useState("")

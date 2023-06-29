@@ -2,13 +2,10 @@ import Container from "react-bootstrap/esm/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Card from "react-bootstrap/Card"
-import Button from "react-bootstrap/Button"
-import { useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
 import Accordion from "react-bootstrap/Accordion"
+import { useSelector } from "react-redux"
 
 const Profile = () => {
-  const id = useParams().id
   const user = useSelector(({ user }) => user)
   return (
     <Container fluid>

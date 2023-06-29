@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import loginService from "../services/login"
 import storageService from "../services/storage"
 import { notify } from "./notification"
+import userService from "../services/users"
 
 const initialState = null
 
@@ -27,9 +28,22 @@ export const loginUser = (credentials) => {
       const user = await loginService.login(credentials)
       storageService.saveUser(user)
       dispatch(set(user))
-      dispatch(notify(`welcome`))
+      dispatch(notify(`Welcome ${user.name}`))
     } catch (exception) {
       dispatch(notify(`${exception.response.data.error}`, "danger"))
+      return exception.response.data.error
+    }
+  }
+}
+
+export const signUpUser = (credentials) => {
+  return async (dispatch) => {
+    try {
+      const user = await userService.create(credentials)
+      dispatch(notify(`Successfully Created Account`))
+    } catch (exception) {
+      dispatch(notify(`${exception.response.data.error}`, "danger"))
+      return exception.response.data.error
     }
   }
 }
