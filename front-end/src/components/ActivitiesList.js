@@ -12,10 +12,10 @@ const ActivitiesList = ({ wheels }) => {
 
   return (
     <div className="table-container">
-      <Table variant="dark" hover borderless={true}>
-        <tbody>
+      <Table variant="dark" borderless={true}>
+        <tbody >
           {wheels.toReversed().map((slice) => (
-            <tr key={slice.id}>
+            <tr key={slice.id} className="table-text-container">
               <td>{slice.content} </td>
               <td>
                 <Button onClick={() => handleDelete(slice)}>Delete</Button>

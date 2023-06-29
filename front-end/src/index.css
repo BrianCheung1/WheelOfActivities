@@ -35,9 +35,10 @@ code {
 
 
 .circle {
+
   position: relative;
-  width: 75vh;
-  height: 75vh;
+  width: 40vw;
+  height: 40vw;
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 0 0 0px #111, 0 0 0 15px #fff, 0 0 0 0px #111;
@@ -45,20 +46,12 @@ code {
   margin-right: 100px;
   margin-top: 20px;
   margin-bottom: 20px;
-}
 
-.arrow { 
-  position: relative;
-  box-sizing: border-box;
-  height: 3vw;
-  width: 3vw;
-  border-style: solid;
-  border-color: white;
-  border-width: 0px 4px 4px 0px;
-  transform: rotate(45deg);
-  overflow: hidden;
 
 }
+
+
+
 .slice {
   /* overflow: hidden; */
   position: absolute;
@@ -80,6 +73,7 @@ code {
 } 
 .circle-container {
   margin-bottom: 50px;
+  margin-top: 50px;
 }
 .spinning {
   animation: spin 3s ease-in-out forwards;
@@ -94,6 +88,7 @@ code {
 .table-container {
   height: 50rem;
   overflow-y: scroll;
+  
 }
 
 .activies-form-container{
@@ -102,4 +97,8 @@ code {
 
 .notification-container{
   position: absolute;
+}
+
+.table-text-container {
+  vertical-align: middle;
 }

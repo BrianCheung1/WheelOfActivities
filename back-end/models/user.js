@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true, minlenght: 3 },
   name: { type: String, required: true, minlenght: 3 },
   passwordHash: String,
+  spins: Number,
   wheels: [
     {
       type: mongoose.Schema.Types.ObjectId,

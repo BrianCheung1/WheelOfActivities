@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col"
 import ActivitiesList from "./ActivitiesList"
 import ActivitesForm from "./ActivitiesForm"
 
+
 const Notification = ({ show, handleClose, winner }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
@@ -24,7 +25,7 @@ const Notification = ({ show, handleClose, winner }) => {
   )
 }
 
-const Wheel = () => {
+const SpinWheel = () => {
   const [spinning, setSpinning] = useState(false)
   const [randomAngle, setRandomAngle] = useState(0)
   const [winner, setWinner] = useState("")
@@ -62,20 +63,17 @@ const Wheel = () => {
 
   return (
     <Container fluid>
-      <Row className="text-center justify-content-center">
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
-          <ActivitesForm />
-        </Col>
-      </Row>
-      <Row className="circle-container text-center justify-content-center align-items-center">
-        <Col xs={12}>
-          <Button onClick={spinWheel} disabled={turning}>
-            Spin the Wheel
-          </Button>
-          <Notification winner={winner} handleClose={handleClose} show={show} />
-        </Col>
+      <Row className="circle-container text-center justify-content-center">
         {wheels.length === 1 ? (
           <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
+            <Button onClick={spinWheel} disabled={turning || wheels.length < 1}>
+              Spin the Wheel
+            </Button>
+            <Notification
+              winner={winner}
+              handleClose={handleClose}
+              show={show}
+            />
             <div
               className={`circle ${spinning ? "spinning" : ""}`}
               style={{ "--randomAngle": `${randomAngle}deg` }}
@@ -88,7 +86,15 @@ const Wheel = () => {
             </div>
           </Col>
         ) : (
-          <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
+          <Col xs="auto">
+            <Button onClick={spinWheel} disabled={turning || wheels.length < 1}>
+              Spin the Wheel
+            </Button>
+            <Notification
+              winner={winner}
+              handleClose={handleClose}
+              show={show}
+            />
             <div
               className={`circle ${spinning ? "spinning" : ""}`}
               style={{ "--randomAngle": `${randomAngle}deg` }}
@@ -115,7 +121,9 @@ const Wheel = () => {
             </div>
           </Col>
         )}
-        <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
+
+        <Col xs="auto">
+          <ActivitesForm />
           <ActivitiesList wheels={wheels} />
         </Col>
       </Row>
@@ -123,4 +131,4 @@ const Wheel = () => {
   )
 }
 
-export default Wheel
+export default SpinWheel
