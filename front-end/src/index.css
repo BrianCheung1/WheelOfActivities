@@ -36,14 +36,14 @@ code {
 
 .circle {
 
-  position: relative;
+  /* position: relative;
   width: 40vw;
   height: 40vw;
   border-radius: 50%;
-  overflow: hidden;
-  box-shadow: 0 0 0 0px #111, 0 0 0 15px #fff, 0 0 0 0px #111;
+  overflow: hidden; */
+  /* box-shadow: 0 0 0 0px #111, 0 0 0 15px #fff, 0 0 0 0px #111;
   margin-left: 100px;
-  margin-right: 100px;
+  margin-right: 100px; */
   margin-top: 50px;
   margin-bottom: 20px;
 

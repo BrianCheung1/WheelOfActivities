@@ -9,6 +9,7 @@ import ActivitiesList from "./ActivitiesList"
 import ActivitesForm from "./ActivitiesForm"
 import { updateUserSpins } from "../reducers/user"
 import { useDispatch } from "react-redux"
+import { PieChart } from "react-minimal-pie-chart"
 
 const Notification = ({ show, handleClose, winner }) => {
   return (
@@ -42,6 +43,17 @@ const SpinWheel = () => {
     )
   )
 
+  const colors = ["#E38627", "#C13C37", "#6A2135", "#0000ff "]
+  const fixedWheels = wheels.map((v, index) => ({
+    ...v,
+    value: 1,
+    color: colors[index % 4],
+  }))
+  const defaultLabelStyle = {
+    fontSize: "5px",
+    fontFamily: "sans-serif",
+  }
+
   const spinWheel = () => {
     const newRandomAngle = Math.floor(Math.random() * 36 * 100)
     console.log(newRandomAngle)
@@ -52,9 +64,17 @@ const SpinWheel = () => {
     setTimeout(() => {
       setSpinning(true)
     }, 100)
+    // setWinner(
+    //   fixedWheels.at(
+    //     (Math.ceil(newRandomAngle / (360 / fixedWheels.length)) %
+    //       fixedWheels.length) -
+    //       1
+    //   )
+    // )
     setWinner(
-      wheels.at(
-        (Math.ceil(newRandomAngle / (360 / wheels.length)) % wheels.length) - 1
+      fixedWheels.at(
+        Math.ceil(newRandomAngle / (360 / fixedWheels.length)) %
+          fixedWheels.length
       )
     )
     setTimeout(() => {
@@ -67,7 +87,7 @@ const SpinWheel = () => {
   return (
     <Container fluid>
       <Row className="circle-container text-center justify-content-center">
-        {wheels.length === 1 ? (
+        {/* {wheels.length === 1 ? (
           <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
             <Button onClick={spinWheel} disabled={turning || wheels.length < 1}>
               Spin the Wheel
@@ -88,21 +108,17 @@ const SpinWheel = () => {
               ))}
             </div>
           </Col>
-        ) : (
-          <Col xs="auto">
-            <Button onClick={spinWheel} disabled={turning || wheels.length < 1}>
-              Spin the Wheel
-            </Button>
-            <Notification
-              winner={winner}
-              handleClose={handleClose}
-              show={show}
-            />
-            <div
-              className={`circle ${spinning ? "spinning" : ""}`}
-              style={{ "--randomAngle": `${randomAngle}deg` }}
-            >
-              {wheels.toReversed().map((slice, index) => (
+        ) : ( */}
+        <Col xs={5}>
+          <Button onClick={spinWheel} disabled={turning || wheels.length < 1}>
+            Spin the Wheel
+          </Button>
+          <Notification winner={winner} handleClose={handleClose} show={show} />
+          <div
+            className={`circle ${spinning ? "spinning" : ""}`}
+            style={{ "--randomAngle": `${randomAngle}deg` }}
+          >
+            {/* {wheels.toReversed().map((slice, index) => (
                 <div
                   className="slice"
                   key={index}
@@ -120,10 +136,17 @@ const SpinWheel = () => {
                     {slice.content}
                   </div>
                 </div>
-              ))}
-            </div>
-          </Col>
-        )}
+              ))} */}
+            <PieChart
+              data={fixedWheels}
+              label={({ dataEntry }) => dataEntry.content}
+              labelStyle={{
+                ...defaultLabelStyle,
+              }}
+            />
+          </div>
+        </Col>
+        {/* )} */}
 
         <Col xs="auto">
           <ActivitesForm />
