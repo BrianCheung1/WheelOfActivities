@@ -55,8 +55,7 @@ const SpinWheel = () => {
   }
 
   const spinWheel = () => {
-    const newRandomAngle = Math.floor(Math.random() * 36 * 100)
-    console.log(newRandomAngle)
+    let newRandomAngle = Math.floor(Math.random() * 360 * 100)
     setRandomAngle(newRandomAngle)
     setSpinning(false)
     setTurning(true)
@@ -64,19 +63,13 @@ const SpinWheel = () => {
     setTimeout(() => {
       setSpinning(true)
     }, 100)
-    // setWinner(
-    //   fixedWheels.at(
-    //     (Math.ceil(newRandomAngle / (360 / fixedWheels.length)) %
-    //       fixedWheels.length) -
-    //       1
-    //   )
-    // )
-    setWinner(
-      fixedWheels.at(
-        Math.ceil(newRandomAngle / (360 / fixedWheels.length)) %
-          fixedWheels.length
-      )
-    )
+    const angle = 360 / fixedWheels.length
+    let count = fixedWheels.length - 1
+    while (newRandomAngle % 360 > angle) {
+      count -= 1
+      newRandomAngle -= angle
+    }
+    setWinner(fixedWheels.at(count))
     setTimeout(() => {
       setShow(true)
       setTurning(false)
@@ -86,34 +79,10 @@ const SpinWheel = () => {
 
   return (
     <Container fluid>
-      <Row className="circle-container text-center justify-content-center">
-        {/* {wheels.length === 1 ? (
-          <Col xs="auto" sm="auto" md="auto" lg="auto" xl="auto" xxl="auto">
-            <Button onClick={spinWheel} disabled={turning || wheels.length < 1}>
-              Spin the Wheel
-            </Button>
-            <Notification
-              winner={winner}
-              handleClose={handleClose}
-              show={show}
-            />
-            <div
-              className={`circle ${spinning ? "spinning" : ""}`}
-              style={{ "--randomAngle": `${randomAngle}deg` }}
-            >
-              {wheels.toReversed().map((slice, index) => (
-                <div className="slice" key={index}>
-                  <div className="text">{slice.content}</div>
-                </div>
-              ))}
-            </div>
-          </Col>
-        ) : ( */}
-        <Col xs={5}>
-          <Button onClick={spinWheel} disabled={turning || wheels.length < 1}>
-            Spin the Wheel
-          </Button>
+      <Row className="circle-container text-center justify-content-center align-items-center">
+        <Col xs={11} md={8} lg={8} xl={6}>
           <Notification winner={winner} handleClose={handleClose} show={show} />
+
           <div
             className={`circle ${spinning ? "spinning" : ""}`}
             style={{ "--randomAngle": `${randomAngle}deg` }}
@@ -139,16 +108,24 @@ const SpinWheel = () => {
               ))} */}
             <PieChart
               data={fixedWheels}
-              label={({ dataEntry }) => dataEntry.content}
+              label={({ dataEntry }) =>
+                dataEntry.content.length > 10
+                  ? dataEntry.content.substring(0, 9) + "..."
+                  : dataEntry.content
+              }
               labelStyle={{
                 ...defaultLabelStyle,
               }}
             />
           </div>
         </Col>
-        {/* )} */}
-
-        <Col xs="auto">
+        <Col xs={1}>
+          <div className="arrow spin-button"></div>
+        </Col>
+        <Col xs={4} className="test">
+          <Button onClick={spinWheel} disabled={turning || wheels.length < 1}>
+            Spin the Wheel
+          </Button>
           <ActivitesForm />
           <ActivitiesList wheels={wheels} />
         </Col>

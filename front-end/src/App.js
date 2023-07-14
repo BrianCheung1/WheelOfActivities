@@ -8,7 +8,6 @@ import { useSelector } from "react-redux"
 import Profile from "./components/Profile"
 import Notification from "./components/Notification"
 import SignUpForm from "./components/SignUpForm"
-import Test from "./components/Test"
 
 const App = () => {
   const stateInitializer = useInitialization()
@@ -41,7 +40,6 @@ const App = () => {
         <Route path={`/user-${user.id}`} element={<Profile />}></Route>
         <Route path="*" element={<SpinWheel />}></Route>
         <Route path="/signup" element={<SignUpForm />}></Route>
-        <Route path="/test" element={<Test />}></Route>
       </Routes>
     </div>
   )
