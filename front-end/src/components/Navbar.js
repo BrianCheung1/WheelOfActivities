@@ -20,11 +20,10 @@ const Navigationbar = () => {
         expand="lg"
         // className="bg-body-tertiary"
       >
-        <Navbar.Brand href="">Home</Navbar.Brand>
+        <Navbar.Brand href="/">Spin the Wheel</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="align-items-center">
-            <Nav.Link href="/">Wheel</Nav.Link>
+        <Navbar.Collapse id="responsive-navbar-nav"  className="justify-content-end">
+          <Nav>
             {!user && <Nav.Link href="/login">Login</Nav.Link>}
             {user && (
               <Nav.Link href={`/user-${user.id}`}>

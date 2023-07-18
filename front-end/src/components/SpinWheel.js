@@ -119,10 +119,12 @@ const SpinWheel = () => {
             />
           </div>
         </Col>
-        <Col xs={1}>
-          <div className="arrow spin-button"></div>
-        </Col>
-        <Col xs={4} className="test">
+        {wheels.length>=1 && (
+          <Col xs={1}>
+            <div className="arrow spin-button"></div>
+          </Col>
+        )}
+        <Col xs={4}>
           <Button onClick={spinWheel} disabled={turning || wheels.length < 1}>
             Spin the Wheel
           </Button>

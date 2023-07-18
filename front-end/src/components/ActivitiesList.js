@@ -37,16 +37,17 @@ const ActivitiesList = ({ wheels }) => {
       <Table variant="dark" borderless={true}>
         <thead>
           <tr>
-            <th>
-              {wheels.length > 1 && (
+            {wheels.length >= 1 && (
+              <th>
                 <Button onClick={() => handleSort()}>Sort</Button>
-              )}
-            </th>
-            <th>
-              {wheels.length > 1 && (
+              </th>
+            )}
+
+            {wheels.length >= 1 && (
+              <th>
                 <Button onClick={() => handleClear()}>Clear</Button>
-              )}
-            </th>
+              </th>
+            )}
           </tr>
         </thead>
 
@@ -54,7 +55,7 @@ const ActivitiesList = ({ wheels }) => {
           {sorted === false &&
             wheels.map((slice) => (
               <tr key={slice.id} className="table-text-container">
-                <td>{slice.content} </td>
+                <td>{slice.content}</td>
                 <td>
                   <Button onClick={() => handleDelete(slice)}>Delete</Button>
                 </td>
@@ -63,7 +64,7 @@ const ActivitiesList = ({ wheels }) => {
           {sorted === true &&
             sortedWheel.map((slice) => (
               <tr key={slice.id} className="table-text-container">
-                <td>{slice.content} </td>
+                <td>{slice.content}</td>
                 <td>
                   <Button onClick={() => handleDelete(slice)}>Delete</Button>
                 </td>
