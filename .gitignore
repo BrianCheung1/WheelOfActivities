@@ -125,3 +125,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+back-end/fly.toml
+back-end/Dockerfile
+back-end/.dockerignore
