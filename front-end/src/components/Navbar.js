@@ -22,14 +22,20 @@ const Navigationbar = () => {
       >
         <Navbar.Brand href="/">Spin the Wheel</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav"  className="justify-content-end">
+        <Navbar.Collapse
+          id="responsive-navbar-nav"
+          className="justify-content-end"
+        >
           <Nav>
             {!user && <Nav.Link href="/login">Login</Nav.Link>}
-            {user && (
-              <Nav.Link href={`/user-${user.id}`}>
-                {user.name} logged in
-              </Nav.Link>
-            )}
+            {!user && <Nav.Link href="/signup">Signup</Nav.Link>}
+            <Nav.Link
+              href="https://github.com/BrianCheung1/WheelOfActivities"
+              target="_blank"
+            >
+              Github
+            </Nav.Link>
+            {user && <Nav.Link href={`/user-${user.id}`}>{user.name}</Nav.Link>}
             {user && (
               <Button variant="outline-danger" onClick={logout}>
                 Logout
