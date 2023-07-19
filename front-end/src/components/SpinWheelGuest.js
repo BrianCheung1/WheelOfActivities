@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useSelector } from "react-redux"
 import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 import Modal from "react-bootstrap/Modal"
@@ -7,8 +6,6 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import ActivitiesList from "./ActivitiesList"
 import ActivitesForm from "./ActivitiesForm"
-import { updateUserSpins } from "../reducers/user"
-import { useDispatch } from "react-redux"
 import { PieChart } from "react-minimal-pie-chart"
 
 const Notification = ({ show, handleClose, winner }) => {
@@ -27,24 +24,17 @@ const Notification = ({ show, handleClose, winner }) => {
   )
 }
 
-
-const SpinWheel = () => {
+const SpinWheelGuest = () => {
   const [spinning, setSpinning] = useState(false)
   const [randomAngle, setRandomAngle] = useState(0)
   const [winner, setWinner] = useState("")
   const [show, setShow] = useState(false)
   const [turning, setTurning] = useState(false)
+  const [wheels, setWheels] = useState([])
   const handleClose = () => setShow(false)
-  const user = useSelector(({ user }) => user)
-  const dispatch = useDispatch()
-
-  let wheels = useSelector(({ wheels }) =>
-    [...wheels].filter((wheel) =>
-      wheel.user.username === user.username ? wheel : ""
-    )
-  )
 
   const colors = ["#E38627", "#C13C37", "#6A2135", "#0000ff "]
+
   const fixedWheels = wheels.map((v, index) => ({
     ...v,
     value: 1,
@@ -74,14 +64,12 @@ const SpinWheel = () => {
     setTimeout(() => {
       setShow(true)
       setTurning(false)
-      dispatch(updateUserSpins(user.id))
     }, 3100)
   }
 
-
-
   return (
     <Container fluid>
+      {console.log(wheels)}
       <Row className="circle-container text-center justify-content-center align-items-center">
         <Col xs={11} md={8} lg={8} xl={6}>
           <Notification winner={winner} handleClose={handleClose} show={show} />
@@ -103,21 +91,25 @@ const SpinWheel = () => {
             />
           </div>
         </Col>
-
+ 
           <Col xs={1}>
             <div className="arrow spin-button"></div>
           </Col>
-   
+
         <Col xs={8} md={4}>
           <Button onClick={spinWheel} disabled={turning || wheels.length < 1}>
             Spin the Wheel
           </Button>
-          <ActivitesForm turning={turning} />
-          <ActivitiesList wheels={wheels} turning={turning} />
+          <ActivitesForm
+            turning={turning}
+            setWheels={setWheels}
+            wheels={wheels}
+          />
+          <ActivitiesList wheels={wheels} setWheels={setWheels} turning={turning}/>
         </Col>
       </Row>
     </Container>
   )
 }
 
-export default SpinWheel
+export default SpinWheelGuest

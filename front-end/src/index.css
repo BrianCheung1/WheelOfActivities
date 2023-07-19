@@ -48,6 +48,8 @@ code {
 .circle {
   overflow: hidden;
   margin-bottom: 20px;
+  border-radius: 50%;
+  border: 1px solid white;
 }
 
 .circle-container {

@@ -4,12 +4,16 @@ import { useDispatch, useSelector } from "react-redux"
 import { removeWheel, removeAllWheel } from "../reducers/wheels"
 import { useState } from "react"
 
-const ActivitiesList = ({ wheels, turning }) => {
+const ActivitiesList = ({ wheels, setWheels, turning }) => {
   const [sorted, setSorted] = useState(false)
   const dispatch = useDispatch()
   const user = useSelector(({ user }) => user)
   const handleDelete = async (slice) => {
-    dispatch(removeWheel(slice))
+    if (!user) {
+      setWheels(wheels.filter((n) => n != slice))
+    } else {
+      dispatch(removeWheel(slice))
+    }
   }
   let sortedWheel = [...wheels].sort((a, b) => {
     let fa = a.content.toLowerCase(),
@@ -29,7 +33,11 @@ const ActivitiesList = ({ wheels, turning }) => {
   }
 
   const handleClear = () => {
-    dispatch(removeAllWheel(user))
+    if (!user) {
+      setWheels([])
+    } else {
+      dispatch(removeAllWheel(user))
+    }
   }
 
   return (

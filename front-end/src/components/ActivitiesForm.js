@@ -1,16 +1,21 @@
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addWheel } from "../reducers/wheels"
 
-const ActivitesForm = ({ turning }) => {
+const ActivitesForm = ({ turning, setWheels, wheels }) => {
   const [content, setContent] = useState("")
   const dispatch = useDispatch()
+  const user = useSelector(({ user }) => user)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    dispatch(addWheel({ content }))
+    if (!user) {
+      setWheels((wheels) => [...wheels, { content: content }])
+    } else {
+      dispatch(addWheel({ content }))
+    }
     setContent("")
     event.target.activity.value = ""
   }
@@ -25,6 +30,7 @@ const ActivitesForm = ({ turning }) => {
             placeholder="Enter Activity"
             id="activity"
             onChange={({ target }) => setContent(target.value)}
+            required
           />
         </Form.Group>
         <Button variant="primary" type="submit" disabled={turning}>

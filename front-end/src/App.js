@@ -8,6 +8,7 @@ import { useSelector } from "react-redux"
 import Profile from "./components/Profile"
 import Notification from "./components/Notification"
 import SignUpForm from "./components/SignUpForm"
+import SpinWheelGuest from "./components/SpinWheelGuest"
 
 const App = () => {
   const stateInitializer = useInitialization()
@@ -22,6 +23,7 @@ const App = () => {
         <Navigationbar />
         <Notification />
         <Routes>
+          <Route path="/" element={<SpinWheelGuest />}></Route>
           <Route path="/login" element={<LoginForm />}></Route>
           <Route path="/signup" element={<SignUpForm />}></Route>
           <Route path="*" element={<LoginForm />}></Route>
