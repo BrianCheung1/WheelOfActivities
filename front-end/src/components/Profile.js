@@ -9,10 +9,12 @@ const Profile = () => {
   const user = useSelector(({ user }) => user)
 
   return (
-    <Container fluid>
-      {console.log(user)}
-      <Row className="justify-content-center align-items-center">
-        <Col xs={4}>
+    <Container fluid className="test">
+      <Row
+        style={{ height: "50vh" }}
+        className="justify-content-center align-items-center"
+      >
+        <Col xs={10} md={6} lg={4}>
           <Card className="text-center">
             <Card.Header as="h5">
               {user.name[0].toUpperCase() + user.name.slice(1)}'s Profile

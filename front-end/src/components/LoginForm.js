@@ -6,7 +6,6 @@ import Col from "react-bootstrap/Col"
 import { useField } from "../hooks"
 import { useDispatch, useSelector } from "react-redux"
 import { loginUser } from "../reducers/user"
-import { useNotification } from "../hooks/index"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 
@@ -42,7 +41,7 @@ const LoginForm = () => {
   return (
     <Container fluid>
       <Row className="justify-content-center">
-        <Col xs={4}>
+        <Col xs={8} md={6} lg={4} xl={3}>
           <Form onSubmit={handleLogin}>
             <Form.Group className="mb-3">
               <Form.Label>Username</Form.Label>
@@ -50,16 +49,19 @@ const LoginForm = () => {
               <Form.Label>Password</Form.Label>
               <Form.Control {...password} />
             </Form.Group>
-            <Button
-              variant="primary"
-              type="submit"
-              style={{ marginRight: "10px" }}
-            >
-              Login
-            </Button>
-            <Button variant="primary" onClick={handleSignup}>
-              Signup
-            </Button>
+
+            <div className="text-center">
+              <Button
+                variant="primary"
+                type="submit"
+                style={{ marginRight: "10px" }}
+              >
+                Login
+              </Button>
+              <Button variant="primary" onClick={handleSignup}>
+                Signup
+              </Button>
+            </div>
           </Form>
         </Col>
       </Row>

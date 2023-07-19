@@ -54,7 +54,7 @@ const SignUpForm = () => {
   return (
     <Container fluid>
       <Row className="justify-content-center">
-        <Col xs={4}>
+        <Col xs={8} md={6} lg={4} xl={3}>
           <Form onSubmit={handleSignup}>
             <Form.Group className="mb-3">
               <Form.Label>Username</Form.Label>
