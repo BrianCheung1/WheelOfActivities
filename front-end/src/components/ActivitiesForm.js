@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { addWheel } from "../reducers/wheels"
 
-const ActivitesForm = () => {
+const ActivitesForm = ({ turning }) => {
   const [content, setContent] = useState("")
   const dispatch = useDispatch()
 
@@ -27,7 +27,7 @@ const ActivitesForm = () => {
             onChange={({ target }) => setContent(target.value)}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" disabled={turning}>
           Add Activity
         </Button>
       </Form>

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { removeWheel, removeAllWheel } from "../reducers/wheels"
 import { useState } from "react"
 
-const ActivitiesList = ({ wheels }) => {
+const ActivitiesList = ({ wheels, turning }) => {
   const [sorted, setSorted] = useState(false)
   const dispatch = useDispatch()
   const user = useSelector(({ user }) => user)
@@ -39,13 +39,17 @@ const ActivitiesList = ({ wheels }) => {
           <tr>
             {wheels.length >= 1 && (
               <th>
-                <Button onClick={() => handleSort()}>Sort</Button>
+                <Button onClick={() => handleSort()} disabled={turning}>
+                  Sort
+                </Button>
               </th>
             )}
 
             {wheels.length >= 1 && (
               <th>
-                <Button onClick={() => handleClear()}>Clear</Button>
+                <Button onClick={() => handleClear()} disabled={turning}>
+                  Clear
+                </Button>
               </th>
             )}
           </tr>
@@ -57,7 +61,12 @@ const ActivitiesList = ({ wheels }) => {
               <tr key={slice.id} className="table-text-container">
                 <td>{slice.content}</td>
                 <td>
-                  <Button onClick={() => handleDelete(slice)}>Delete</Button>
+                  <Button
+                    onClick={() => handleDelete(slice)}
+                    disabled={turning}
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -66,7 +75,12 @@ const ActivitiesList = ({ wheels }) => {
               <tr key={slice.id} className="table-text-container">
                 <td>{slice.content}</td>
                 <td>
-                  <Button onClick={() => handleDelete(slice)}>Delete</Button>
+                  <Button
+                    onClick={() => handleDelete(slice)}
+                    disabled={turning}
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))}
